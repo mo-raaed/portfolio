@@ -57,8 +57,6 @@ interface Project {
   stack: string[];
   github?: string;
   live?: string;
-  hasReport?: boolean;
-  reportName?: string;
   accent: string; // Gradient color configuration
 }
 
@@ -122,18 +120,14 @@ export default function App() {
       description: 'Designed and trained four neural network architectures (FFNN, CFNN, LSTM, EMNN) to forecast Global Horizontal Irradiance (GHI) in Oman using cyclical encoding, lag features, and satellite data.',
       stack: ['Python', 'TensorFlow', 'Scikit-learn', 'GroupKFold'],
       github: 'https://github.com/mo-raaed/CNN-Architecture-Evaluator',
-      hasReport: true,
-      reportName: 'GHI_Prediction_Report.pdf',
       accent: 'from-amber-500 to-orange-500',
     },
     {
       id: 'predictive-maintenance',
-      title: 'AI-Driven Predictive Maintenance',
-      category: 'Senior Capstone Design',
-      description: 'Leading the research track investigating vibration analysis, Fast Fourier Transforms (FFT), and ML-based classification algorithms for fault detection in turbines, pumps, and rotating machinery.',
-      stack: ['Signal Processing', 'Fault Detection', 'ML Classification', 'MATLAB'],
-      hasReport: true,
-      reportName: 'Predictive_Maintenance_Review.pdf',
+      title: 'Rotordynamic Sensor Fusion Framework',
+      category: 'Mechatronics & Signal Processing',
+      description: 'Research track lead for a mechatronics system fusing a MEMS accelerometer (ADXL354) and high-frequency PZT sensor (Bosch KS4-P) for dual-path machinery fault diagnostics. Designed analog front-end signal conditioning and digital filters (FFT and Hilbert envelope analysis) on ESP32.',
+      stack: ['Sensor Fusion', 'Analog Front-End', 'Signal Processing', 'ESP32', 'FFT & Hilbert'],
       accent: 'from-emerald-500 to-teal-500',
     },
     {
@@ -234,9 +228,9 @@ export default function App() {
     {
       id: 't7',
       date: '2026',
-      title: 'Capstone: Rotating Machinery Maintenance',
+      title: 'Capstone: Sensor Fusion Framework',
       role: 'Research Lead',
-      description: 'Spearheading signal analysis and ML fault classification for turbomachinery in the energy and oil operations domain.',
+      description: 'Spearheading signal analysis and MEMS-PZT sensor fusion for rotating machinery condition monitoring in the engineering domain.',
       icon: 'project'
     }
   ];
@@ -501,17 +495,6 @@ export default function App() {
                     Repository
                   </a>
                 )}
-                {project.hasReport && (
-                  <a 
-                    href={`/reports/${project.reportName}`} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-xs font-bold text-emerald-500 flex items-center gap-1 hover:underline"
-                  >
-                    <FileText size={14} />
-                    Research Report
-                  </a>
-                )}
               </div>
             </div>
           ))}
@@ -609,7 +592,7 @@ export default function App() {
           <div className="space-y-6 bg-surface-container-low p-8 rounded-lg border border-border">
             <h4 className="font-bold text-lg text-foreground">Reference Verification</h4>
             <p className="text-xs text-muted-foreground font-medium leading-relaxed">
-              If you require a copy of my curriculum vitae, certificates, or academic reports, they can be obtained below or requested via email.
+              If you require a copy of my curriculum vitae or certificates, they can be obtained below or requested via email.
             </p>
             <div className="grid grid-cols-1 gap-3">
               <a 
