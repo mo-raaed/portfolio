@@ -25,3 +25,10 @@ dist-ssr
 
 # Private project details and reports
 /public/reports
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example
