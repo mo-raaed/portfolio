@@ -1,0 +1,300 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+@import "tailwindcss";
+
+/* Tell Tailwind v4 to use the .dark class for the dark: variant */
+@custom-variant dark (&:is(.dark *));
+
+/* Design System: Weightless Clarity (Light) / Aura Midnight (Dark) */
+@theme {
+  /* Typography - Plus Jakarta Sans for everything */
+  --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
+
+  /* Light Mode - "Weightless Clarity" */
+  /* Surface tokens */
+  --color-background: #eff7ff;
+  --color-foreground: #003348;
+
+  --color-card: #ffffff;
+  --color-card-foreground: #003348;
+
+  --color-popover: #ffffff;
+  --color-popover-foreground: #003348;
+
+  /* Primary - Deep sky blue */
+  --color-primary: #056380;
+  --color-primary-foreground: #ffffff;
+
+  /* Primary container for gradients */
+  --color-primary-container: #8fd5f7;
+
+  /* Secondary - Surface container low */
+  --color-secondary: #e3f3ff;
+  --color-secondary-foreground: #003348;
+
+  /* Muted - Surface container highest */
+  --color-muted: #b8e3ff;
+  --color-muted-foreground: #356079;
+
+  /* Accent */
+  --color-accent: #8fd5f7;
+  --color-accent-foreground: #003348;
+
+  --color-destructive: #dc2626;
+  --color-destructive-foreground: #ffffff;
+
+  /* Ghost border - 15% opacity outline variant */
+  --color-border: rgba(136, 179, 206, 0.15);
+  --color-input: #ffffff;
+  --color-ring: #056380;
+
+  /* Extended surface tokens */
+  --color-surface: #eff7ff;
+  --color-surface-container: #e3f3ff;
+  --color-surface-container-low: #e3f3ff;
+  --color-surface-container-high: #cceaff;
+  --color-surface-container-highest: #b8e3ff;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-variant: #deeef5;
+  --color-outline-variant: #88b3ce;
+
+  /* Radius - Rounded system */
+  --radius-sm: 0.5rem;
+  --radius-md: 1rem;
+  --radius-lg: 2rem;
+  --radius-xl: 3rem;
+  --radius-full: 9999px;
+
+  /* Spacing tokens (12px base unit) */
+  --space-1: 12px;
+  --space-2: 24px;
+  --space-3: 36px;
+  --space-4: 48px;
+  --space-5: 64px;
+  --section-gap: 32px;
+  --card-padding: 24px;
+}
+
+/* Dark mode - "Aura Midnight" */
+.dark {
+  --color-background: #0a0f15;
+  --color-foreground: #e1e5ee;
+
+  --color-card: #141a21;
+  --color-card-foreground: #e1e5ee;
+
+  --color-popover: #1a2028;
+  --color-popover-foreground: #e1e5ee;
+
+  /* Primary - Bright electric blue */
+  --color-primary: #81aeff;
+  --color-primary-foreground: #000000;
+
+  /* Primary container for gradients */
+  --color-primary-container: #68a0ff;
+
+  /* Secondary - Cyan accent */
+  --color-secondary: #1a2028;
+  --color-secondary-foreground: #e1e5ee;
+
+  /* Muted */
+  --color-muted: #0e141a;
+  --color-muted-foreground: #a7abb4;
+
+  /* Accent - Cyan */
+  --color-accent: #8fd5f7;
+  --color-accent-foreground: #00394c;
+
+  --color-destructive: #ff716c;
+  --color-destructive-foreground: #490006;
+
+  /* Ghost border - 15% opacity per spec */
+  --color-border: rgba(67, 72, 79, 0.15);
+
+  /* Tertiary - Cyan highlight */
+  --color-tertiary: #9dfaff;
+
+  /* Primary dim for glow effects */
+  --color-primary-dim: #0072e5;
+  --color-input: #0e141a;
+  --color-ring: #81aeff;
+
+  /* Extended surface tokens */
+  --color-surface: #0a0f15;
+  --color-surface-container: #141a21;
+  --color-surface-container-low: #0e141a;
+  --color-surface-container-highest: #1f262f;
+  --color-surface-container-lowest: #000000;
+  --color-surface-bright: #252d36;
+  --color-surface-variant: #1f262f;
+  --color-outline-variant: #43484f;
+}
+
+/* Also support system preference for dark mode */
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    --color-background: #0a0f15;
+    --color-foreground: #e1e5ee;
+
+    --color-card: #141a21;
+    --color-card-foreground: #e1e5ee;
+
+    --color-popover: #1a2028;
+    --color-popover-foreground: #e1e5ee;
+
+    --color-primary: #81aeff;
+    --color-primary-foreground: #000000;
+
+    --color-primary-container: #68a0ff;
+
+    --color-secondary: #1a2028;
+    --color-secondary-foreground: #e1e5ee;
+
+    --color-muted: #0e141a;
+    --color-muted-foreground: #a7abb4;
+
+    --color-accent: #8fd5f7;
+    --color-accent-foreground: #00394c;
+
+    --color-destructive: #ff716c;
+    --color-destructive-foreground: #490006;
+
+    --color-border: rgba(67, 72, 79, 0.15);
+
+    /* Tertiary - Cyan highlight */
+    --color-tertiary: #9dfaff;
+
+    /* Primary dim for glow effects */
+    --color-primary-dim: #0072e5;
+    --color-input: #0e141a;
+    --color-ring: #81aeff;
+
+    --color-surface: #0a0f15;
+    --color-surface-container: #141a21;
+    --color-surface-container-low: #0e141a;
+    --color-surface-container-highest: #1f262f;
+    --color-surface-container-lowest: #000000;
+    --color-surface-bright: #252d36;
+    --color-surface-variant: #1f262f;
+    --color-outline-variant: #43484f;
+  }
+}
+
+/* Base styles */
+body {
+  @apply bg-background text-foreground font-sans antialiased;
+}
+
+/* All headings use Plus Jakarta Sans */
+h1, h2, h3, h4, h5, h6 {
+  @apply font-sans font-semibold tracking-tight;
+}
+
+/* Custom scrollbar - Subtle and atmospheric */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-primary/20 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-primary/30;
+}
+
+/* Selection - Primary tint */
+::selection {
+  @apply bg-primary/20 text-foreground;
+}
+
+/* Focus ring - Using primary color */
+:focus-visible {
+  @apply outline-none ring-2 ring-primary/50 ring-offset-2 ring-offset-background;
+}
+
+/* Glassmorphism utility - Light mode */
+@utility glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(136, 179, 206, 0.15);
+}
+
+/* Glassmorphism utility - Dark mode override (24px blur per spec) */
+.dark .glass {
+  background: rgba(31, 38, 47, 0.6);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(67, 72, 79, 0.15);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) .glass {
+    background: rgba(31, 38, 47, 0.6);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(67, 72, 79, 0.15);
+  }
+}
+
+/* Tonal shadow - Light mode (ultra-diffused, blue-tinted) */
+@utility shadow-tonal {
+  box-shadow: 0 20px 40px rgba(0, 51, 72, 0.06);
+}
+
+/* Ambient shadow - Dark mode (deeper, more dramatic) */
+@utility shadow-ambient {
+  box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Interactive hover lift effect */
+@utility hover-lift {
+  transition: transform 0.2s ease-out;
+}
+
+/* Primary button glow effect for dark mode */
+.dark .btn-glow:hover {
+  box-shadow: 0 0 15px var(--color-primary);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) .btn-glow:hover {
+    box-shadow: 0 0 15px var(--color-primary);
+  }
+}
+
+/* Celestial chip glow effect */
+.dark .chip-glow {
+  text-shadow: 0 0 8px var(--color-primary);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) .chip-glow {
+    text-shadow: 0 0 8px var(--color-primary);
+  }
+}
+
+/* Infinite marquee styles */
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 40s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
