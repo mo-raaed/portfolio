@@ -134,40 +134,26 @@
   :root:not(.light) {
     --color-background: #0a0f15;
     --color-foreground: #e1e5ee;
-
     --color-card: #141a21;
     --color-card-foreground: #e1e5ee;
-
     --color-popover: #1a2028;
     --color-popover-foreground: #e1e5ee;
-
     --color-primary: #81aeff;
     --color-primary-foreground: #000000;
-
     --color-primary-container: #68a0ff;
-
     --color-secondary: #1a2028;
     --color-secondary-foreground: #e1e5ee;
-
     --color-muted: #0e141a;
     --color-muted-foreground: #a7abb4;
-
     --color-accent: #8fd5f7;
     --color-accent-foreground: #00394c;
-
     --color-destructive: #ff716c;
     --color-destructive-foreground: #490006;
-
     --color-border: rgba(67, 72, 79, 0.15);
-
-    /* Tertiary - Cyan highlight */
     --color-tertiary: #9dfaff;
-
-    /* Primary dim for glow effects */
     --color-primary-dim: #0072e5;
     --color-input: #0e141a;
     --color-ring: #81aeff;
-
     --color-surface: #0a0f15;
     --color-surface-container: #141a21;
     --color-surface-container-low: #0e141a;
@@ -177,6 +163,16 @@
     --color-surface-variant: #1f262f;
     --color-outline-variant: #43484f;
   }
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Scroll offset for fixed navbar */
+section[id] {
+  scroll-margin-top: 5rem;
 }
 
 /* Base styles */
@@ -252,9 +248,13 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.4);
 }
 
-/* Interactive hover lift effect */
+/* Interactive hover lift effect — includes actual transform */
 @utility hover-lift {
-  transition: transform 0.2s ease-out;
+  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
 }
 
 /* Primary button glow effect for dark mode */
@@ -268,13 +268,13 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-/* Celestial chip glow effect */
-.dark .chip-glow {
+/* Celestial chip glow effect — ONLY on hover */
+.dark .chip-glow:hover {
   text-shadow: 0 0 8px var(--color-primary);
 }
 
 @media (prefers-color-scheme: dark) {
-  :root:not(.light) .chip-glow {
+  :root:not(.light) .chip-glow:hover {
     text-shadow: 0 0 8px var(--color-primary);
   }
 }
@@ -297,4 +297,34 @@ h1, h2, h3, h4, h5, h6 {
 
 .animate-marquee:hover {
   animation-play-state: paused;
+}
+
+/* Fade-in-up animation for scroll reveal */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  opacity: 0;
+}
+
+.fade-in-up.is-visible {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+/* Subtle pulse for badge icon */
+@keyframes gentlePulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.animate-gentle-pulse {
+  animation: gentlePulse 3s ease-in-out infinite;
 }

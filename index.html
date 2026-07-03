@@ -1,13 +1,38 @@
 <!doctype html>
-<html lang="en" class="dark">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/jpeg" href="/favicon.jpg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Portfolio and career journal of Mohammed Al-Yousif, AI & Robotics Engineering student at AUIS. Showcasing software applications, ML research, and engineering systems." />
     <title>Mohammed Al-Yousif | AI & Robotics Engineer</title>
+
+    <!-- Open Graph / Social Sharing -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://mo-alyousif.com/" />
+    <meta property="og:title" content="Mohammed Al-Yousif | AI & Robotics Engineer" />
+    <meta property="og:description" content="Portfolio and career journal of Mohammed Al-Yousif — AI & Robotics Engineering student at AUIS. Showcasing deployed web tools, ML research, and mechatronics systems." />
+    <meta property="og:image" content="https://mo-alyousif.com/og-card.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Mohammed Al-Yousif | AI & Robotics Engineer" />
+    <meta name="twitter:description" content="Portfolio and career journal — deployed web tools, ML research, and mechatronics systems." />
+    <meta name="twitter:image" content="https://mo-alyousif.com/og-card.jpg" />
+
     <!-- Plus Jakarta Sans Font -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+    <!-- Prevent FOUC: set theme class before first paint -->
+    <script>
+      (function() {
+        var saved = localStorage.getItem('theme');
+        var theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.classList.add(theme);
+      })();
+    </script>
   </head>
   <body class="bg-background text-foreground antialiased selection:bg-primary/20 selection:text-foreground">
     <div id="root"></div>
