@@ -1,32 +1,51 @@
-# React + TypeScript + Vite
+# mo-alyousif.com — Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Single-page portfolio of Mohammed Al-Yousif. React 19 + Tailwind CSS v4 + Vite 6,
+deployed on Cloudflare Workers. "Heritage" design system: deep navy + burgundy,
+Fraunces Variable (display) + Plus Jakarta Sans Variable (body), self-hosted fonts,
+light/dark themes with system-preference follow.
 
-Currently, two official plugins are available:
+## Commands
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+npm run dev      # local dev server
+npm run build    # tsc + vite build
+npm run lint     # oxlint
+npm run preview  # build + wrangler dev (production preview)
+npm run deploy   # build + wrangler deploy
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## Image drop-in convention
+
+The site renders styled placeholders until real images exist. Drop files at the
+paths below and they light up automatically — no code changes needed
+(`SmartImage` lazy-loads each file and falls back to the placeholder on 404).
+
+| File | Size | Purpose |
+|---|---|---|
+| `public/images/me.jpg` | 800×1000 (4:5), ≤150 KB | Hero portrait |
+| `public/images/projects/<id>.jpg` | 1600×1000 (16:10), ≤200 KB | Project screenshots |
+| `public/apple-touch-icon.png` | 180×180 | iOS home-screen icon |
+
+Project screenshot ids (from `src/data/projects.ts`): `gradify`, `ghi-prediction`,
+`sensor-fusion`, `schedule-maker`, `rag-assistant`, `gamut`, `stereo-depth`,
+`emotion-music`.
+
+Recompress large images before dropping them in, e.g.:
+
+```bash
+npx sharp-cli -i original.jpg -o public/images/projects/gradify.jpg -q 75 resize 1600 1000
+```
+
+## Structure
+
+```
+src/
+  App.tsx              LazyMotion/MotionConfig wrapper, theme, section composition
+  index.css            Heritage design tokens (single source, one .dark override)
+  types.ts             Shared interfaces
+  data/                projects, timeline, skills, profile (edit content here)
+  hooks/useTheme.ts    Theme state; only an explicit toggle writes localStorage
+  components/          One file per section + primitives/ (Reveal, SectionHeading,
+                       StatusDot, SmartImage, icons)
+```

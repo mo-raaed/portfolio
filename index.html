@@ -2,9 +2,14 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/jpeg" href="/favicon.jpg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <!-- Drop a 180x180 PNG at /public/apple-touch-icon.png to activate -->
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F8F6F3" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0B0E1C" />
     <meta name="description" content="Portfolio and career journal of Mohammed Al-Yousif, AI & Robotics Engineering student at AUIS. Showcasing software applications, ML research, and engineering systems." />
+    <link rel="canonical" href="https://mo-alyousif.com/" />
     <title>Mohammed Al-Yousif | AI & Robotics Engineer</title>
 
     <!-- Open Graph / Social Sharing -->
@@ -22,11 +27,34 @@
     <meta name="twitter:description" content="Portfolio and career journal — deployed web tools, ML research, and mechatronics systems." />
     <meta name="twitter:image" content="https://mo-alyousif.com/og-card.jpg" />
 
-    <!-- Prevent FOUC: set theme class before first paint -->
+    <!-- Structured data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Mohammed Al-Yousif",
+        "jobTitle": "AI & Robotics Engineer",
+        "url": "https://mo-alyousif.com/",
+        "email": "mailto:m7md.raaed@gmail.com",
+        "sameAs": [
+          "https://github.com/mo-raaed",
+          "https://www.linkedin.com/in/mohammed-al-yousif-495989297/"
+        ]
+      }
+    </script>
+
+    <!-- Prevent FOUC: always resolve and apply a theme class before first
+         paint (saved choice, else system preference). The Heritage tokens
+         rely on this — there are no prefers-color-scheme CSS fallbacks. -->
     <script>
-      (function() {
+      (function () {
         var saved = localStorage.getItem('theme');
-        var theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        var theme =
+          saved === 'light' || saved === 'dark'
+            ? saved
+            : window.matchMedia('(prefers-color-scheme: dark)').matches
+              ? 'dark'
+              : 'light';
         document.documentElement.classList.add(theme);
       })();
     </script>
