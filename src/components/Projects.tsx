@@ -1,4 +1,6 @@
 import { ExternalLink } from 'lucide-react';
+import { m } from 'motion/react';
+import type { Variants } from 'motion/react';
 import { projects } from '../data/projects';
 import type { Project } from '../types';
 import Reveal from './primitives/Reveal';
@@ -69,6 +71,17 @@ function projectImage(project: Project) {
   };
 }
 
+/* Grid stagger (Bug 5 resolution): parent variants, no per-index delays */
+const gridContainer: Variants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.07 } },
+};
+
+const gridItem: Variants = {
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
+};
+
 export default function Projects() {
   const featured = projects.filter(p => p.featured);
   const rest = projects.filter(p => !p.featured);
@@ -110,14 +123,20 @@ export default function Projects() {
           ))}
         </div>
 
-        {/* Grid tier */}
-        <Reveal>
-          <div className="grid sm:grid-cols-2 gap-6 md:gap-8">
-            {rest.map(project => (
-              <article
-                key={project.id}
-                className="group bg-surface border border-border rounded-lg overflow-hidden shadow-card hover-lift flex flex-col"
-              >
+        {/* Grid tier — staggered reveal */}
+        <m.div
+          className="grid sm:grid-cols-2 gap-6 md:gap-8"
+          variants={gridContainer}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: '0px 0px -60px' }}
+        >
+          {rest.map(project => (
+            <m.article
+              key={project.id}
+              variants={gridItem}
+              className="group bg-surface border border-border rounded-lg overflow-hidden shadow-card hover-lift flex flex-col"
+            >
                 <SmartImage
                   {...projectImage(project)}
                   className="aspect-[16/10] w-full object-cover border-b border-border"
@@ -136,10 +155,9 @@ export default function Projects() {
                     <ProjectLinks project={project} />
                   </div>
                 </div>
-              </article>
-            ))}
-          </div>
-        </Reveal>
+            </m.article>
+          ))}
+        </m.div>
       </div>
     </section>
   );

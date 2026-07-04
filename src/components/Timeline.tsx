@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { m, useScroll } from 'motion/react';
 import { Award, Briefcase, ChevronLeft, ChevronRight, Cpu, GraduationCap } from 'lucide-react';
 import { timelineEvents } from '../data/timeline';
 import type { TimelineEvent } from '../types';
@@ -21,6 +22,9 @@ const CARD_SCROLL = 344; /* card width (w-80) + gap */
  */
 export default function Timeline() {
   const railRef = useRef<HTMLOListElement>(null);
+
+  /* Burgundy scroll-progress bar driven by the rail's horizontal scroll */
+  const { scrollXProgress } = useScroll({ container: railRef });
 
   const scrollByCards = (direction: 1 | -1) => {
     const behavior: ScrollBehavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -103,6 +107,11 @@ export default function Timeline() {
             </li>
           ))}
         </ol>
+
+        {/* Scroll progress */}
+        <div aria-hidden="true" className="mx-6 md:mx-2 mt-1 h-0.5 rounded-full bg-border overflow-hidden">
+          <m.div className="h-full bg-accent origin-left" style={{ scaleX: scrollXProgress }} />
+        </div>
       </div>
     </section>
   );

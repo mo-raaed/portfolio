@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { AnimatePresence, m } from 'motion/react';
 import { Menu, Moon, Sun, X } from 'lucide-react';
 import { profile } from '../data/profile';
 import type { Theme } from '../hooks/useTheme';
@@ -103,22 +104,31 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
       </div>
 
       {/* Mobile menu */}
-      {menuOpen && (
-        <div id="mobile-menu" className="md:hidden border-t border-border bg-background/95 backdrop-blur-xl">
-          <div className="flex flex-col px-6 py-4 gap-1">
-            {navLinks.map(l => (
-              <a
-                key={l.href}
-                href={l.href}
-                onClick={() => setMenuOpen(false)}
-                className="py-3 text-sm font-semibold text-foreground hover:text-primary transition-colors border-b border-border last:border-0"
-              >
-                {l.label}
-              </a>
-            ))}
-          </div>
-        </div>
-      )}
+      <AnimatePresence>
+        {menuOpen && (
+          <m.div
+            id="mobile-menu"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.25, ease: 'easeOut' }}
+            className="md:hidden overflow-hidden border-t border-border bg-background/95 backdrop-blur-xl"
+          >
+            <div className="flex flex-col px-6 py-4 gap-1">
+              {navLinks.map(l => (
+                <a
+                  key={l.href}
+                  href={l.href}
+                  onClick={() => setMenuOpen(false)}
+                  className="py-3 text-sm font-semibold text-foreground hover:text-primary transition-colors border-b border-border last:border-0"
+                >
+                  {l.label}
+                </a>
+              ))}
+            </div>
+          </m.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 }

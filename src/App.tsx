@@ -1,3 +1,4 @@
+import { LazyMotion, MotionConfig } from 'motion/react';
 import { useTheme } from './hooks/useTheme';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -12,17 +13,23 @@ export default function App() {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <Navbar theme={theme} toggleTheme={toggleTheme} />
-      <main>
-        <Hero />
-        <CurrentWork />
-        <Projects />
-        <Timeline />
-        <Skills />
-        <Contact />
-      </main>
-      <Footer />
-    </div>
+    <LazyMotion features={() => import('./motionFeatures').then(mod => mod.default)} strict>
+      {/* reducedMotion="user": transform/layout animations are disabled for
+          prefers-reduced-motion users; opacity fades remain (Bug 1) */}
+      <MotionConfig reducedMotion="user">
+        <div className="min-h-screen bg-background text-foreground">
+          <Navbar theme={theme} toggleTheme={toggleTheme} />
+          <main>
+            <Hero />
+            <CurrentWork />
+            <Projects />
+            <Timeline />
+            <Skills />
+            <Contact />
+          </main>
+          <Footer />
+        </div>
+      </MotionConfig>
+    </LazyMotion>
   );
 }
