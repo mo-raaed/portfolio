@@ -1,10 +1,12 @@
+import { useRef } from 'react';
 import { ChevronRight, Compass, FileText } from 'lucide-react';
-import { m, useScroll, useTransform } from 'motion/react';
+import { m, useScroll, useTransform, useReducedMotion } from 'motion/react';
 import type { Variants } from 'motion/react';
 import { projects } from '../data/projects';
 import { profile } from '../data/profile';
 import SmartImage from './primitives/SmartImage';
 import Reveal from './primitives/Reveal';
+import CountUp from './primitives/CountUp';
 
 const container: Variants = {
   hidden: {},
@@ -17,10 +19,23 @@ const item: Variants = {
 };
 
 export default function Hero() {
-  /* Hero blob parallax */
-  const { scrollY } = useScroll();
-  const blobY = useTransform(scrollY, [0, 600], [0, -80]);
-  const blobY2 = useTransform(scrollY, [0, 600], [0, -40]);
+  const reduce = useReducedMotion();
+  const sectionRef = useRef<HTMLElement>(null);
+
+  /* Layered depth: each layer reads the section's own scroll traversal and
+     moves at a different speed. reduce → every range collapses to no motion.
+     (MotionConfig reducedMotion only strips animate props, not these styles.) */
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start start', 'end start'],
+  });
+  const r = (a: number, b: number) => (reduce ? [0, 0] : [a, b]);
+
+  const blobY = useTransform(scrollYProgress, [0, 1], r(0, -150));
+  const blobY2 = useTransform(scrollYProgress, [0, 1], r(0, -90));
+  const portraitY = useTransform(scrollYProgress, [0, 1], r(0, 44)); // sinks — separates from copy
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.85], reduce ? [1, 1] : [1, 0.35]);
+  const contentScale = useTransform(scrollYProgress, [0, 1], reduce ? [1, 1] : [1, 0.97]);
 
   /* Bug 8: stats derived from data, not hardcoded */
   const stats = [
@@ -31,7 +46,11 @@ export default function Hero() {
   ];
 
   return (
-    <section id="about" className="relative overflow-hidden pt-32 pb-16 md:pt-44 md:pb-24">
+    <section
+      ref={sectionRef}
+      id="about"
+      className="relative overflow-hidden pt-32 pb-16 md:pt-44 md:pb-24"
+    >
       {/* Background blobs — Bug 4: valid arbitrary value replaces `right-1/10` */}
       <m.div
         aria-hidden="true"
@@ -44,7 +63,7 @@ export default function Hero() {
         className="absolute bottom-10 left-1/4 w-60 h-60 rounded-full bg-accent/10 blur-3xl -z-10"
       />
 
-      <div className="max-w-6xl mx-auto px-6 md:px-10">
+      <m.div style={{ opacity: contentOpacity, scale: contentScale }} className="max-w-6xl mx-auto px-6 md:px-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           {/* Left: copy — staggered entrance */}
           <m.div
@@ -96,9 +115,10 @@ export default function Hero() {
             </m.div>
           </m.div>
 
-          {/* Right: portrait with offset burgundy frame, spring entrance */}
+          {/* Right: portrait with offset burgundy frame, spring entrance.
+              portraitY gives it a slower drift than the copy → depth. */}
           <div className="lg:col-span-5">
-            <div className="relative max-w-sm mx-auto lg:max-w-none lg:mr-4">
+            <m.div style={{ y: portraitY }} className="relative max-w-sm mx-auto lg:max-w-none lg:mr-4">
               <div
                 aria-hidden="true"
                 className="absolute inset-0 translate-x-3 translate-y-3 rounded-lg border-2 border-accent/50"
@@ -119,7 +139,7 @@ export default function Hero() {
                   }
                 />
               </m.div>
-            </div>
+            </m.div>
           </div>
         </div>
 
@@ -132,13 +152,13 @@ export default function Hero() {
                   {stat.label}
                 </dt>
                 <dd className="font-display font-semibold text-3xl md:text-4xl text-primary">
-                  {stat.value}
+                  <CountUp value={stat.value} />
                 </dd>
               </div>
             ))}
           </dl>
         </Reveal>
-      </div>
+      </m.div>
     </section>
   );
 }

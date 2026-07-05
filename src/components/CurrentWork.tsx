@@ -1,10 +1,22 @@
 import { Wrench } from 'lucide-react';
 import { currentWork } from '../data/profile';
 import Reveal from './primitives/Reveal';
+import { Parallax } from './primitives/Parallax';
 
 export default function CurrentWork() {
   return (
-    <section aria-labelledby="current-work-heading" className="max-w-6xl mx-auto px-6 md:px-10 pb-8">
+    <section
+      aria-labelledby="current-work-heading"
+      className="relative max-w-6xl mx-auto px-6 md:px-10 pb-8"
+    >
+      {/* Accent shape drifting opposite the card content */}
+      <Parallax
+        speed={-0.3}
+        aria-hidden
+        className="pointer-events-none absolute -z-10 right-8 -top-6 w-40 h-40 rounded-full bg-accent/10 blur-2xl"
+      >
+        <span />
+      </Parallax>
       <Reveal>
         <div className="border border-border rounded-lg bg-surface px-5 py-4 md:px-6 flex flex-col md:flex-row md:items-center gap-3 md:gap-6 shadow-card">
           <h2

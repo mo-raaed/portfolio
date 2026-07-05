@@ -5,6 +5,8 @@ interface SmartImageProps {
   alt: string;
   /** Sizing/framing classes, applied to both the image and its placeholder. */
   className?: string;
+  /** Inline styles forwarded to the image (e.g. objectPosition). */
+  style?: React.CSSProperties;
   /** Rendered centered inside the placeholder when the image is missing. */
   fallback?: React.ReactNode;
 }
@@ -15,7 +17,7 @@ interface SmartImageProps {
  * with fine grid lines. Dropping the file into /public lights it up —
  * no code changes needed.
  */
-export default function SmartImage({ src, alt, className = '', fallback }: SmartImageProps) {
+export default function SmartImage({ src, alt, className = '', style, fallback }: SmartImageProps) {
   const [errored, setErrored] = useState(false);
 
   if (errored) {
@@ -43,6 +45,7 @@ export default function SmartImage({ src, alt, className = '', fallback }: Smart
       decoding="async"
       onError={() => setErrored(true)}
       className={className}
+      style={style}
     />
   );
 }

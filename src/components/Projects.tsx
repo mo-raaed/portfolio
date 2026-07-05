@@ -6,7 +6,7 @@ import type { Project } from '../types';
 import Reveal from './primitives/Reveal';
 import SectionHeading from './primitives/SectionHeading';
 import StatusDot from './primitives/StatusDot';
-import SmartImage from './primitives/SmartImage';
+import ProjectImage from './primitives/ProjectImage';
 import { GithubIcon } from './primitives/icons';
 
 function ProjectLinks({ project }: { project: Project }) {
@@ -59,18 +59,6 @@ function CategoryChip({ category }: { category: string }) {
   );
 }
 
-function projectImage(project: Project) {
-  return {
-    src: `/images/projects/${project.id}.jpg`,
-    alt: `Screenshot of ${project.title}`,
-    fallback: (
-      <span className="font-display italic font-medium text-2xl text-muted-foreground text-center">
-        {project.title}
-      </span>
-    ),
-  };
-}
-
 /* Grid stagger (Bug 5 resolution): parent variants, no per-index delays */
 const gridContainer: Variants = {
   hidden: {},
@@ -99,9 +87,10 @@ export default function Projects() {
             <Reveal key={project.id}>
               <article className="grid md:grid-cols-2 gap-8 md:gap-14 items-center">
                 <div className={idx % 2 === 1 ? 'md:order-2' : ''}>
-                  <SmartImage
-                    {...projectImage(project)}
-                    className="aspect-[16/10] w-full object-cover rounded-lg border border-border shadow-card-lg"
+                  <ProjectImage
+                    project={project}
+                    tier="featured"
+                    className="w-full rounded-lg border border-border shadow-card-lg"
                   />
                 </div>
                 <div className="space-y-4">
@@ -137,9 +126,10 @@ export default function Projects() {
               variants={gridItem}
               className="group bg-surface border border-border rounded-lg overflow-hidden shadow-card hover-lift flex flex-col"
             >
-                <SmartImage
-                  {...projectImage(project)}
-                  className="aspect-[16/10] w-full object-cover border-b border-border"
+                <ProjectImage
+                  project={project}
+                  tier="grid"
+                  className="w-full border-b border-border"
                 />
                 <div className="p-6 md:p-7 flex flex-col gap-3.5 flex-1">
                   <div className="flex items-center justify-between gap-3 flex-wrap">
