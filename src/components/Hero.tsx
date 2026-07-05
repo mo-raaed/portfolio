@@ -63,7 +63,7 @@ export default function Hero() {
         className="absolute bottom-10 left-1/4 w-60 h-60 rounded-full bg-accent/10 blur-3xl -z-10"
       />
 
-      <m.div style={{ opacity: contentOpacity, scale: contentScale }} className="max-w-6xl mx-auto px-6 md:px-10">
+      <m.div style={{ opacity: contentOpacity, scale: contentScale }} className="max-w-7xl mx-auto px-6 md:px-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           {/* Left: copy — staggered entrance */}
           <m.div

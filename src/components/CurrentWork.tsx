@@ -7,7 +7,7 @@ export default function CurrentWork() {
   return (
     <section
       aria-labelledby="current-work-heading"
-      className="relative max-w-6xl mx-auto px-6 md:px-10 pb-8"
+      className="relative max-w-7xl mx-auto px-6 md:px-10 pb-8"
     >
       {/* Accent shape drifting opposite the card content */}
       <Parallax

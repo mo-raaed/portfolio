@@ -135,7 +135,7 @@ export default function Projects() {
 
   return (
     <section id="projects" className="py-20 md:py-28 overflow-x-clip">
-      <div className="max-w-6xl mx-auto px-6 md:px-10">
+      <div className="max-w-7xl mx-auto px-6 md:px-10">
         <Reveal>
           <SectionHeading eyebrow="Showcase" title="Featured Engineering Projects" className="mb-14 md:mb-20" />
         </Reveal>

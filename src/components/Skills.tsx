@@ -6,7 +6,7 @@ import SectionHeading from './primitives/SectionHeading';
 export default function Skills() {
   return (
     <section id="skills" className="py-20 md:py-28">
-      <div className="max-w-6xl mx-auto px-6 md:px-10">
+      <div className="max-w-7xl mx-auto px-6 md:px-10">
         <Reveal>
           <SectionHeading
             eyebrow="Competencies"

@@ -128,7 +128,7 @@ export default function Timeline() {
 
   return (
     <section id="timeline" className="py-20 md:py-28 bg-surface-2/50 border-y border-border">
-      <div className="max-w-6xl mx-auto px-6 md:px-10">
+      <div className="max-w-7xl mx-auto px-6 md:px-10">
         <Reveal>
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10 md:mb-14">
             <SectionHeading eyebrow="Career & project log" title="The Journey So Far" />
@@ -154,7 +154,7 @@ export default function Timeline() {
         </Reveal>
       </div>
 
-      <div className="group/rail max-w-6xl mx-auto md:px-10 relative">
+      <div className="group/rail max-w-7xl mx-auto md:px-10 relative">
         {/* Edge fade masks */}
         <div
           aria-hidden="true"
