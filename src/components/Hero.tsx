@@ -81,11 +81,11 @@ export default function Hero() {
             </m.p>
 
             <h1 className="font-display font-semibold text-5xl md:text-7xl lg:text-8xl tracking-tight leading-[1.04] text-foreground">
-              <m.span variants={item} className="block">
-                From neural networks
+              <m.span variants={item} className="block text-balance">
+                From neural networks{'\u00A0'}to
               </m.span>
               <m.span variants={item} className="block">
-                to <em className="italic font-medium text-accent">rotordynamic sensors</em>.
+                <em className="italic font-medium text-accent">rotordynamic sensors</em>.
               </m.span>
             </h1>
 
