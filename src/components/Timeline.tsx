@@ -15,7 +15,7 @@ const iconFor: Record<TimelineEvent['icon'], React.ReactNode> = {
 };
 
 const CARD_SCROLL = 344; /* card width (w-80) + gap */
-const SPEED = 32; /* px per second of conveyor drift */
+const SPEED = 50; /* px per second of conveyor drift */
 const RESUME_DELAY = 3000; /* ms the belt pauses after a user-initiated scroll */
 
 /**
@@ -35,6 +35,7 @@ export default function Timeline() {
   const hoveredRef = useRef(false);
   const focusedRef = useRef(false);
   const pausedUntilRef = useRef(0);
+  const dragRef = useRef({ active: false, startX: 0, startScroll: 0, pointerId: -1 });
   const progress = useMotionValue(0);
 
   /* One rendered pass under reduced motion; a duplicated pass drives the loop. */
@@ -60,7 +61,13 @@ export default function Timeline() {
     const el = railRef.current;
     const loop = loopWidthRef.current;
     if (!el || !loop) return;
-    if (hoveredRef.current || focusedRef.current || performance.now() < pausedUntilRef.current) return;
+    if (
+      hoveredRef.current ||
+      focusedRef.current ||
+      dragRef.current.active ||
+      performance.now() < pausedUntilRef.current
+    )
+      return;
     posRef.current += (Math.min(delta, 64) / 1000) * SPEED; /* clamp tab-switch spikes */
     if (posRef.current >= loop) posRef.current -= loop; /* seamless forward wrap */
     el.scrollLeft = posRef.current;
@@ -87,8 +94,36 @@ export default function Timeline() {
   };
 
   const scrollByCards = (direction: 1 | -1) => {
+    /* Pause the belt first so the rAF loop stops writing scrollLeft and does
+       not stomp the smooth scroll; onScroll keeps posRef in sync. */
+    pausedUntilRef.current = performance.now() + RESUME_DELAY;
     const behavior: ScrollBehavior = reduce ? 'auto' : 'smooth';
     railRef.current?.scrollBy({ left: direction * CARD_SCROLL, behavior });
+  };
+
+  /* Mouse drag-to-slide. Touch keeps native momentum scrolling. */
+  const onPointerDown = (e: React.PointerEvent<HTMLOListElement>) => {
+    if (reduce || e.pointerType !== 'mouse') return;
+    const el = railRef.current;
+    if (!el) return;
+    dragRef.current = { active: true, startX: e.clientX, startScroll: el.scrollLeft, pointerId: e.pointerId };
+    el.setPointerCapture(e.pointerId);
+  };
+
+  const onPointerMove = (e: React.PointerEvent<HTMLOListElement>) => {
+    const d = dragRef.current;
+    if (!d.active) return;
+    const el = railRef.current;
+    if (!el) return;
+    el.scrollLeft = d.startScroll - (e.clientX - d.startX); /* fires onScroll → resync + pause */
+  };
+
+  const endDrag = () => {
+    const d = dragRef.current;
+    if (!d.active) return;
+    d.active = false;
+    railRef.current?.releasePointerCapture(d.pointerId);
+    pausedUntilRef.current = performance.now() + RESUME_DELAY;
   };
 
   return (
@@ -136,6 +171,10 @@ export default function Timeline() {
           onScroll={onScroll}
           onPointerEnter={() => (hoveredRef.current = true)}
           onPointerLeave={() => (hoveredRef.current = false)}
+          onPointerDown={onPointerDown}
+          onPointerMove={onPointerMove}
+          onPointerUp={endDrag}
+          onPointerCancel={endDrag}
           onFocus={() => (focusedRef.current = true)}
           onBlur={() => (focusedRef.current = false)}
           onTouchStart={() => (pausedUntilRef.current = performance.now() + RESUME_DELAY)}
@@ -143,7 +182,7 @@ export default function Timeline() {
           className={`flex gap-6 overflow-x-auto px-6 md:px-2 pb-6 pt-2 ${
             reduce
               ? 'snap-x snap-mandatory scrollbar-thin'
-              : '[scrollbar-width:none] [&::-webkit-scrollbar]:hidden'
+              : 'select-none can-hover:cursor-grab can-hover:active:cursor-grabbing [scrollbar-width:none] [&::-webkit-scrollbar]:hidden'
           }`}
         >
           {events.map((event, i) => {

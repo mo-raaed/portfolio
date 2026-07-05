@@ -11,6 +11,32 @@
 @custom-variant can-hover (@media (hover: hover) and (pointer: fine));
 
 /* ───────────────────────────────────────────────────────────────
+   Smooth theme crossfade. Registering the palette vars as typed
+   <color> @property values makes them animatable, so toggling .dark
+   interpolates every color at once instead of snapping. The eased
+   curve (fast then settling) avoids any harsh flash. Reduced-motion
+   users get an instant swap via the global guard near the bottom.
+   ─────────────────────────────────────────────────────────────── */
+@property --heritage-bg { syntax: "<color>"; inherits: true; initial-value: #F8F6F3; }
+@property --heritage-fg { syntax: "<color>"; inherits: true; initial-value: #131C30; }
+@property --heritage-surface { syntax: "<color>"; inherits: true; initial-value: #FFFFFF; }
+@property --heritage-surface-2 { syntax: "<color>"; inherits: true; initial-value: #EFEAE3; }
+@property --heritage-primary { syntax: "<color>"; inherits: true; initial-value: #252D6B; }
+@property --heritage-primary-solid { syntax: "<color>"; inherits: true; initial-value: #252D6B; }
+@property --heritage-accent { syntax: "<color>"; inherits: true; initial-value: #7D1F34; }
+@property --heritage-muted-fg { syntax: "<color>"; inherits: true; initial-value: #545C6E; }
+@property --heritage-border { syntax: "<color>"; inherits: true; initial-value: rgba(19, 28, 48, 0.14); }
+@property --heritage-ring { syntax: "<color>"; inherits: true; initial-value: #252D6B; }
+
+:root {
+  transition-property: --heritage-bg, --heritage-fg, --heritage-surface, --heritage-surface-2,
+    --heritage-primary, --heritage-primary-solid, --heritage-accent, --heritage-muted-fg,
+    --heritage-border, --heritage-ring;
+  transition-duration: 0.5s;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ───────────────────────────────────────────────────────────────
    Design system: "Heritage" — deep navy + burgundy quiet luxury.
    Single source of truth (Bug 11): raw palette lives in :root with
    one .dark override; Tailwind tokens map via @theme inline below.
