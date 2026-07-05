@@ -8,6 +8,7 @@ import Timeline from './components/Timeline';
 import Skills from './components/Skills';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import CursorGlow from './components/primitives/CursorGlow';
 
 export default function App() {
   const { theme, toggleTheme } = useTheme();
@@ -17,7 +18,10 @@ export default function App() {
       {/* reducedMotion="user": transform/layout animations are disabled for
           prefers-reduced-motion users; opacity fades remain (Bug 1) */}
       <MotionConfig reducedMotion="user">
-        <div className="min-h-screen bg-background text-foreground">
+        {/* No bg here: body carries bg-background so the fixed CursorGlow can
+            sit above the canvas yet behind every opaque section/card. */}
+        <div className="min-h-screen text-foreground">
+          <CursorGlow />
           <Navbar theme={theme} toggleTheme={toggleTheme} />
           <main>
             <Hero />
