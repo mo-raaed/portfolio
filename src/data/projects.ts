@@ -72,4 +72,14 @@ export const projects: Project[] = [
     stack: ['Python', 'PyTorch', 'ResNet-18', 'OpenCV'],
     status: 'local',
   },
+  {
+    id: 'sign-language',
+    title: 'HandSpeak ASL Recognition',
+    category: 'Computer Vision & Accessibility',
+    description:
+      'A real-time sign language recognition system for non-verbal hospital patients. It tracks 21 hand landmarks and classifies 29 ASL signs with a lightweight LandmarkNN, reaching 98.89% validation accuracy at 30 FPS on a laptop CPU with no GPU.',
+    stack: ['Python', 'MediaPipe', 'Neural Network', 'OpenCV'],
+    github: 'https://github.com/mo-raaed/handspeak',
+    status: 'local',
+  },
 ];

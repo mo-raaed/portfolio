@@ -17,4 +17,5 @@ export const imageMeta: Record<string, ProjectImageMeta> = {
   gamut: { width: 1600, height: 1000 }, // 1.60
   'stereo-depth': { width: 624, height: 645 }, // 0.97
   'emotion-music': { width: 1200, height: 1600 }, // 0.75
+  'sign-language': { width: 1600, height: 949 }, // 1.69
 };

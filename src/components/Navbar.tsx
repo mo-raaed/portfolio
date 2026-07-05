@@ -49,14 +49,17 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
     <nav ref={navRef} className="fixed top-0 w-full z-50 glass">
       <div className="max-w-6xl mx-auto px-6 md:px-10 py-4 flex justify-between items-center">
         <a href="#" className="flex items-center gap-3 group">
-          <span
-            aria-hidden="true"
-            className="w-8 h-8 rounded-md bg-primary-solid text-white font-display font-semibold flex items-center justify-center text-sm"
-          >
-            M
-          </span>
+          <img
+            src="/images/pfp.jpg"
+            alt={`Portrait of ${profile.name}`}
+            width={32}
+            height={32}
+            loading="eager"
+            decoding="async"
+            className="w-8 h-8 rounded-md object-cover border border-border shadow-card"
+          />
           <span className="text-lg font-bold tracking-tight text-foreground group-hover:text-primary transition-colors">
-            {profile.domain}
+            {profile.name}
           </span>
         </a>
 

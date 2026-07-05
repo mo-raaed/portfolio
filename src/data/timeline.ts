@@ -75,5 +75,15 @@ export const timelineEvents: TimelineEvent[] = (
       icon: 'project',
       ongoing: true,
     },
+    {
+      id: 't-deans-award',
+      sortDate: '2026-05-01',
+      displayDate: 'May 2026',
+      title: "Dean's Award",
+      role: 'Academic Honor',
+      description:
+        "Recognized by the American University of Iraq, Sulaimani for earning a 3.50 to 3.74 GPA in the Fall 2025 semester.",
+      icon: 'award',
+    },
   ] satisfies TimelineEvent[]
 ).sort((a, b) => new Date(a.sortDate).getTime() - new Date(b.sortDate).getTime());
