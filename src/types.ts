@@ -23,6 +23,8 @@ export interface TimelineEvent {
   role: string;
   description: string;
   icon: 'project' | 'work' | 'education' | 'award' | 'volunteering';
+  /** Marks an in-flight milestone: renders a pulsing "ongoing" chip. */
+  ongoing?: boolean;
 }
 
 export interface SkillGroup {

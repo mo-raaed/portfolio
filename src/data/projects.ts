@@ -3,12 +3,12 @@ import type { Project } from '../types';
 export const projects: Project[] = [
   {
     id: 'gradify',
-    title: 'Gradify 2.0',
+    title: 'Gradify',
     category: 'Academic Web Application',
     description:
-      'A GPA calculator built for AUIS students — import your transcript PDF, simulate grade changes, track retakes, and sync across devices. No manual data entry needed.',
+      'A GPA calculator built for AUIS students. Import a transcript PDF, simulate grade changes, track retakes, and sync across devices, all without manual data entry.',
     stack: ['React', 'TypeScript', 'Convex', 'Clerk Auth', 'Tailwind CSS'],
-    live: 'https://gradify.netlify.app',
+    live: 'https://gradify.neuralsun.systems',
     status: 'live',
     featured: true,
   },
@@ -24,20 +24,11 @@ export const projects: Project[] = [
     featured: true,
   },
   {
-    id: 'sensor-fusion',
-    title: 'Rotordynamic Sensor Fusion Framework',
-    category: 'Mechatronics & Signal Processing',
-    description:
-      'A dual-sensor condition monitoring system for rotating machinery. Fuses MEMS accelerometer and PZT knock sensor data through custom analog conditioning and digital fault analysis (FFT, Hilbert envelope) on ESP32.',
-    stack: ['Sensor Fusion', 'Analog Front-End', 'ESP32', 'FFT & Hilbert', 'MATLAB'],
-    status: 'in-progress',
-  },
-  {
     id: 'schedule-maker',
     title: 'Weekly Schedule Builder',
     category: 'Utility Web Application',
     description:
-      'Plan your weekly routine by dropping in fixed tasks — the app builds a clean, organized calendar and lets you export it as a high-quality PNG or PDF.',
+      'Plan your weekly routine by dropping in fixed tasks. The app builds a clean, organized calendar and lets you export it as a high-quality PNG or PDF.',
     stack: ['React', 'TypeScript', 'Convex', 'Clerk Auth', 'Tailwind CSS'],
     live: 'https://schedule.neuralsun.systems/',
     status: 'live',
@@ -47,7 +38,7 @@ export const projects: Project[] = [
     title: 'AUIS Academic Catalog RAG Assistant',
     category: 'Local AI System',
     description:
-      'An AI assistant that answers student questions about the university catalog in natural language — runs entirely offline on a laptop with no cloud APIs. Uses vector search and a quantized language model.',
+      'An AI assistant that answers student questions about the university catalog in natural language, running entirely offline on a laptop with no cloud APIs. Uses vector search and a quantized language model.',
     stack: ['Python', 'Phi-3-mini', 'ChromaDB', 'Gradio', 'CUDA'],
     status: 'local',
   },
@@ -56,18 +47,18 @@ export const projects: Project[] = [
     title: 'Gamut Photo Scopes Lab',
     category: 'WebGL Visualization',
     description:
-      'A browser-based photo analysis tool with GPU-accelerated scopes — histogram, waveform, and vectorscope — for photographers who want to inspect exposure and color without desktop software.',
+      'A browser-based photo analysis tool with GPU-accelerated histogram, waveform, and vectorscope views, built for photographers who want to inspect exposure and color without desktop software.',
     stack: ['React', 'TypeScript', 'WebGL', 'Vite'],
     github: 'https://github.com/mo-raaed/gamut',
-    // TODO: flip back to 'live' (and add the `live` URL) once Gamut is deployed. (Bug 7)
-    status: 'local',
+    live: 'https://gamut.neuralsun.systems',
+    status: 'live',
   },
   {
     id: 'stereo-depth',
     title: 'Stereo Depth Computer Vision',
     category: 'Computer Vision',
     description:
-      'Generates spatial depth maps from stereo image pairs using block-matching algorithms and camera calibration — turning two flat photos into a 3D depth representation.',
+      'Generates spatial depth maps from stereo image pairs using block-matching algorithms and camera calibration, turning two flat photos into a 3D depth representation.',
     stack: ['Python', 'OpenCV', 'NumPy', 'Camera Calibration'],
     github: 'https://github.com/mo-raaed/StereoDepth-CV',
     status: 'local',

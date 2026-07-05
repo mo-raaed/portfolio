@@ -12,6 +12,6 @@ export const profile = {
 } as const;
 
 export const currentWork = [
-  { label: 'Senior Design Capstone — Sensor Fusion Framework' },
-  { label: 'Solar Irradiance ANN — Manuscript Drafting' },
+  { label: 'Senior Design Capstone: Sensor Fusion Framework' },
+  { label: 'Solar Irradiance ANN: Manuscript Drafting' },
 ] as const;

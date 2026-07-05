@@ -9,7 +9,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const outDir = join(__dirname, '..', 'tmp-screens');
 
 const targets = [
-  { id: 'gradify', url: 'https://gradify.netlify.app', wait: 3500 },
+  { id: 'gradify', url: 'https://gradify.neuralsun.systems', wait: 3500 },
   { id: 'schedule-maker', url: 'https://schedule.neuralsun.systems/', wait: 3500 },
   { id: 'gamut', url: 'http://localhost:5173', wait: 3500 },
 ];

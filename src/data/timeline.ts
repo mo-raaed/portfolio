@@ -4,19 +4,19 @@ import type { TimelineEvent } from '../types';
 export const timelineEvents: TimelineEvent[] = (
   [
     {
-      id: 't-vex',
-      sortDate: '2024-06-01',
-      displayDate: 'Mid 2024',
-      title: 'VEX Robotics Head Scorekeeper',
-      role: 'Volunteering',
+      id: 't-gradify',
+      sortDate: '2024-06-15',
+      displayDate: 'Summer 2024',
+      title: 'Gradify Launched',
+      role: 'Full-stack Developer',
       description:
-        'Organized and refereed match records for the national VEX Robotics tournament held on the AUIS campus.',
-      icon: 'volunteering',
+        'Designed and deployed a full-stack GPA tool actively used by AUIS students for transcript import and grade simulation.',
+      icon: 'project',
     },
     {
       id: 't-admissions',
       sortDate: '2024-10-01',
-      displayDate: 'Late 2024',
+      displayDate: 'Fall 2024',
       title: 'AUIS Admissions & Podcast',
       role: 'Volunteering Award',
       description:
@@ -26,7 +26,7 @@ export const timelineEvents: TimelineEvent[] = (
     {
       id: 't-shift',
       sortDate: '2025-01-15',
-      displayDate: 'Jan 2025',
+      displayDate: 'January 2025',
       title: 'Shift Agency Video Intern',
       role: 'Video Editor & Filmmaker',
       description:
@@ -34,19 +34,30 @@ export const timelineEvents: TimelineEvent[] = (
       icon: 'work',
     },
     {
-      id: 't-gradify',
-      sortDate: '2025-03-01',
-      displayDate: 'Early 2025',
-      title: 'Gradify 2.0 Launched',
-      role: 'Full-stack Developer',
+      id: 't-ghi',
+      sortDate: '2025-06-15',
+      displayDate: 'Summer 2025',
+      title: 'GHI Solar Prediction Research',
+      role: 'AI Researcher',
       description:
-        'Designed and deployed a full-stack GPA tool actively used by AUIS students for transcript import and grade simulation.',
+        'Engineered deep neural network predictors for solar irradiance forecasting, contributing to an upcoming academic publication.',
       icon: 'project',
+      ongoing: true,
+    },
+    {
+      id: 't-vex',
+      sortDate: '2025-11-01',
+      displayDate: 'November 2025',
+      title: 'VEX Robotics Head Scorekeeper',
+      role: 'Volunteering',
+      description:
+        'Organized and refereed match records for the national VEX Robotics tournament held on the AUIS campus.',
+      icon: 'volunteering',
     },
     {
       id: 't-cdcs',
-      sortDate: '2025-06-01',
-      displayDate: 'Mid 2025',
+      sortDate: '2025-12-01',
+      displayDate: 'December 2025',
       title: 'Certified Document Control (CDCS)',
       role: 'Professional Certification',
       description:
@@ -54,24 +65,15 @@ export const timelineEvents: TimelineEvent[] = (
       icon: 'award',
     },
     {
-      id: 't-ghi',
-      sortDate: '2025-10-01',
-      displayDate: 'Late 2025',
-      title: 'GHI Solar Prediction Research',
-      role: 'AI Researcher',
-      description:
-        'Engineered deep neural network predictors for solar irradiance forecasting, contributing to an upcoming academic publication.',
-      icon: 'project',
-    },
-    {
       id: 't-capstone',
-      sortDate: '2026-01-15',
-      displayDate: '2026',
+      sortDate: '2026-02-01',
+      displayDate: 'Spring 2026',
       title: 'Capstone: Sensor Fusion Framework',
       role: 'Research Lead',
       description:
         'Leading MEMS-PZT sensor fusion research for rotating machinery condition monitoring in the energy and oil operations domain.',
       icon: 'project',
+      ongoing: true,
     },
   ] satisfies TimelineEvent[]
 ).sort((a, b) => new Date(a.sortDate).getTime() - new Date(b.sortDate).getTime());

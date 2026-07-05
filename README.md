@@ -28,8 +28,7 @@ paths below and they light up automatically — no code changes needed
 | `public/apple-touch-icon.png` | 180×180 | iOS home-screen icon |
 
 Project screenshot ids (from `src/data/projects.ts`): `gradify`, `ghi-prediction`,
-`sensor-fusion`, `schedule-maker`, `rag-assistant`, `gamut`, `stereo-depth`,
-`emotion-music`.
+`schedule-maker`, `rag-assistant`, `gamut`, `stereo-depth`, `emotion-music`.
 
 Recompress large images before dropping them in, e.g.:
 
