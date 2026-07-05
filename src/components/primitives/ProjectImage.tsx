@@ -1,24 +1,27 @@
-import { useRef } from 'react';
-import { m } from 'motion/react';
 import type { Project } from '../../types';
 import { imageMeta } from '../../data/imageMeta';
 import SmartImage from './SmartImage';
-import { useParallax } from '../../hooks/useParallax';
 
 /**
- * Dynamic project-image frame. The frame's aspect ratio follows the image's
- * natural ratio (clamped per tier) so nothing is force-cropped:
- *   - cover  (app screenshots): fill + slow scroll-parallax within the frame.
- *   - contain (figures/charts): mounted whole on a navy surface, never cropped.
- * No metadata (e.g. sensor-fusion) → default 16:10 frame + SmartImage fallback.
+ * Project-image frame. The frame's aspect ratio follows the image's natural
+ * ratio so nothing is force-cropped:
+ *   - Tall grid images (ratio < 1.2) sit contained over a blurred copy of
+ *     themselves — the whole image shows, the frame stays a tidy 4:3.
+ *   - Everything else fills its exact-ratio frame (zero crop).
+ * Images rest "quiet" (slightly dimmed + desaturated) on hover-capable
+ * pointers and lift to full color on hover; touch pointers keep them full
+ * color. No metadata → default 16:10 frame + SmartImage fallback.
  */
 
-const FRAME = {
-  featured: { min: 1.33, max: 2.1, mountRatio: 1.5 },
-  grid: { min: 1.6, max: 2.1, mountRatio: 1.6 },
-} as const;
+const TALL_GRID_THRESHOLD = 1.2;
+const BACKDROP_RATIO = 4 / 3;
 
-const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v));
+/* Applied to the visible image. Needs `group` on an ancestor (grid cards and
+   featured articles both provide it). can-hover keeps touch full-color. */
+const quiet =
+  'transition-[filter,opacity,transform] duration-300 ease-out ' +
+  'can-hover:opacity-90 can-hover:saturate-[0.85] ' +
+  'group-hover:opacity-100 group-hover:saturate-100 motion-safe:group-hover:scale-[1.02]';
 
 export default function ProjectImage({
   project,
@@ -30,11 +33,6 @@ export default function ProjectImage({
   className?: string;
 }) {
   const meta = imageMeta[project.id];
-  const frameRef = useRef<HTMLDivElement>(null);
-  // Parallax only meaningful for cover images that overflow the frame.
-  const y = useParallax(frameRef, -34, 34);
-
-  const cfg = FRAME[tier];
   const src = { src: `/images/projects/${project.id}.jpg`, alt: `Screenshot of ${project.title}` };
   const fallback = (
     <span className="font-display italic font-medium text-2xl text-muted-foreground text-center">
@@ -45,41 +43,39 @@ export default function ProjectImage({
   // No meta → default frame, SmartImage owns the fallback panel.
   if (!meta) {
     return (
-      <div ref={frameRef} className={`aspect-[16/10] overflow-hidden ${className}`}>
-        <SmartImage {...src} fallback={fallback} className="w-full h-full object-cover" />
+      <div className={`aspect-[16/10] overflow-hidden ${className}`}>
+        <SmartImage {...src} fallback={fallback} className={`h-full w-full object-cover ${quiet}`} />
       </div>
     );
   }
 
   const ratio = meta.width / meta.height;
 
-  if (meta.fit === 'contain') {
+  // Branch A: tall grid image → contain over a blurred self-backdrop, no crop.
+  if (tier === 'grid' && ratio < TALL_GRID_THRESHOLD) {
     return (
-      <div
-        ref={frameRef}
-        style={{ aspectRatio: cfg.mountRatio }}
-        className={`overflow-hidden bg-surface-2 grid place-items-center p-4 md:p-6 ${className}`}
-      >
-        <SmartImage {...src} fallback={fallback} className="max-w-full max-h-full object-contain" />
+      <div style={{ aspectRatio: BACKDROP_RATIO }} className={`relative overflow-hidden ${className}`}>
+        <img
+          src={src.src}
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+          decoding="async"
+          className="absolute inset-0 h-full w-full object-cover scale-110 blur-2xl saturate-[0.8] opacity-60 dark:opacity-40"
+        />
+        <SmartImage
+          {...src}
+          fallback={fallback}
+          className={`relative mx-auto h-full w-auto object-contain ${quiet}`}
+        />
       </div>
     );
   }
 
-  const framed = clamp(ratio, cfg.min, cfg.max);
+  // Branch B: exact natural ratio, zero crop.
   return (
-    <div
-      ref={frameRef}
-      style={{ aspectRatio: framed }}
-      className={`overflow-hidden ${className}`}
-    >
-      <m.div style={{ y }} className="w-full h-full">
-        <SmartImage
-          {...src}
-          fallback={fallback}
-          className="w-full h-[118%] -translate-y-[9%] object-cover"
-          style={meta.position ? { objectPosition: meta.position } : undefined}
-        />
-      </m.div>
+    <div style={{ aspectRatio: ratio }} className={`overflow-hidden ${className}`}>
+      <SmartImage {...src} fallback={fallback} className={`h-full w-full object-cover ${quiet}`} />
     </div>
   );
 }

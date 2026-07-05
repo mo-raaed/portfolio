@@ -7,6 +7,9 @@
 /* Tell Tailwind v4 to use the .dark class for the dark: variant */
 @custom-variant dark (&:is(.dark *));
 
+/* Hover-capable pointers only (touch keeps full-color images) */
+@custom-variant can-hover (@media (hover: hover) and (pointer: fine));
+
 /* ───────────────────────────────────────────────────────────────
    Design system: "Heritage" — deep navy + burgundy quiet luxury.
    Single source of truth (Bug 11): raw palette lives in :root with

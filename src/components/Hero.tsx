@@ -93,7 +93,7 @@ export default function Hero() {
               variants={item}
               className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl"
             >
-              I'm {profile.name} — I build deployed web tools, train custom ML models, and design
+              I'm {profile.name}. I build deployed web tools, train custom ML models, and design
               mechatronic sensor systems. Currently finishing my B.Sc. at AUIS and targeting
               AI-driven roles in the energy sector.
             </m.p>
@@ -133,7 +133,7 @@ export default function Hero() {
                 <SmartImage
                   src="/images/me.jpg"
                   alt={`Portrait of ${profile.name}`}
-                  className="aspect-[4/5] w-full object-cover rounded-lg border border-border shadow-card-lg"
+                  className="aspect-[1200/1539] w-full object-cover rounded-lg border border-border shadow-card-lg"
                   fallback={
                     <span className="font-display font-semibold text-8xl text-primary/40">M</span>
                   }

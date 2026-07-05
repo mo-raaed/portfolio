@@ -3,16 +3,10 @@
  * Regenerate after dropping/replacing an image with:  node scripts/measure-images.mjs
  * Sole consumer is ProjectImage, which derives each frame's aspect ratio from
  * these so nothing is force-cropped.
- *
- * NOTE: `fit`/`position` are legacy optional fields kept only so the pre-rewrite
- * ProjectImage compiles in this commit; both are removed with the ProjectImage
- * rewrite in the next commit.
  */
 export interface ProjectImageMeta {
   width: number;
   height: number;
-  fit?: 'cover' | 'contain';
-  position?: string;
 }
 
 export const imageMeta: Record<string, ProjectImageMeta> = {
