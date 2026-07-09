@@ -32,3 +32,6 @@ dist-ssr
 !.dev.vars.example
 .env*
 !.env.example
+
+# graphify knowledge-graph output (regenerable)
+graphify-out/
